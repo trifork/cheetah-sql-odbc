@@ -2,17 +2,20 @@
 [Version = "1.0.1"]
 section OpenSearchProject;
 
+
 // When set to true, additional trace information will be written out to the User log.
 // This should be set to false before release. Tracing is done through a call to
 // Diagnostics.LogValue(). When EnableTraceOutput is set to false, the call becomes a
 // no-op and simply returns the original value.
 
-config = Text.FromBinary(Extension.Contents("OauthConf.json"));  
-
 EnableTraceOutput = true;
 
 [DataSource.Kind = "OpenSearchProject", Publish = "OpenSearchProject.Publish"]
 shared OpenSearchProject.Contents = Value.ReplaceType(OpenSearchProjectImpl, OpenSearchProjectType);
+
+
+// Solution 1
+// shared OauthConfig = Value.ReplaceType(OpenSearchOauthImpl, OpenSearchProjectType);
 
 // Wrapper function to provide additional UI customization.
 OpenSearchProjectType = type function (
@@ -43,13 +46,48 @@ OpenSearchProjectType = type function (
             Documentation.FieldDescription = "Certificate validation",
             Documentation.AllowedValues = {true, false}
         ]
+    ),
+    IdPUrl as (
+        type text meta [
+            Documentation.FieldCaption = "Endopint",
+            Documentation.FieldDescription = "Endpoint",
+            Documentation.SampleValues = {"http://"}
+        ]
+    ),
+    User as (
+        type text meta [
+            Documentation.FieldCaption = "Username",
+            Documentation.FieldDescription = "Username",
+            Documentation.SampleValues = {"username"}
+        ]
+    ),
+    Secret as (
+        type text meta [
+            Documentation.FieldCaption = "Secret",
+            Documentation.FieldDescription = "Secret",
+            Documentation.SampleValues = {"secret"}
+        ]
     )
 ) as table meta [
-    Documentation.Name = "OpenSearch Project"
+    Documentation.Name = "OpenSearch Project Mod"
 ];
 
 
-OpenSearchProjectImpl = (Server as text, Port as number, UseSSL as logical, HostnameVerification as logical) as table =>
+// Solution 1
+// OpenSearchOauthImpl = (Server as text, Port as number, UseSSL as logical, HostnameVerification as logical, IdPUrl as text, User as text, Secret as text) as record =>
+//   let .......
+
+// Solution 2
+// url == [];
+// OpenSearchOauthImpl = (IdPUrl as text, User as text, Secret as text) as record =>
+//    let 
+//     url = IdPUrl,
+//     user = User,
+//     secret= Secret
+//    in 
+//     OpenSearchOauthImpl = [url= url, user = user, secret= secret]
+
+OpenSearchProjectImpl = (Server as text, Port as number, UseSSL as logical, HostnameVerification as logical, IdPUrl as text, User as text, Secret as text) as table =>
     let
         Credential = Extension.CurrentCredential(),
         AuthenticationMode = Credential[AuthenticationKind],
@@ -69,7 +107,10 @@ OpenSearchProjectImpl = (Server as text, Port as number, UseSSL as logical, Host
             else if AuthenticationMode = "OAuth" then
                 [
                     Auth = "OAUTH2",
-                    JWT = Credential[access_token]
+                    JWT = Credential[access_token],
+                    url = IdPUrl,
+                    user = User,
+                    secret= Secret
                 ]
             else
                 [
@@ -174,6 +215,7 @@ OpenSearchProjectImpl = (Server as text, Port as number, UseSSL as logical, Host
         FullConnectionString = (ConnectionString & CredentialConnectionString & EncryptedConnectionString),
         OdbcDatasource = Odbc.DataSource(FullConnectionString, OdbcOptions)
     in
+// Solution 3 add information here and call this function  
         OdbcDatasource;
 
 // Handles ODBC errors.
@@ -205,7 +247,8 @@ OnOdbcError = (errorRecord as record) =>
 OpenSearchProject = [
     // Required for use with Power BI Service.
 
-    IdPinfo = Table.SingleRow(OpenSearchProjectImpl) as record ,
+    // Solution 3 call the function here and get the odbc connection string
+    // config = OpenSearchProject.Contents() 
 
     TestConnection = (dataSourcePath) =>
         let
@@ -213,9 +256,13 @@ OpenSearchProject = [
             Server = json[Server],
             Port = json[Port],
             UseSSL = json[UseSSL],
-            HostnameVerification = json[HostnameVerification]
+            HostnameVerification = json[HostnameVerification],
+            idp = json[IdPUrl],
+            username = json[User],
+            secret  =json[Secret]
+
         in
-            {"OpenSearchProject.Contents", Server, Port, UseSSL, HostnameVerification},
+            {"OpenSearchProject.Contents", Server, Port, UseSSL, HostnameVerification, idp, username, secret},
 
     // Authentication modes
     Authentication = [
@@ -233,7 +280,7 @@ OpenSearchProject = [
             Label = "OAUTH2",
             StartLogin = StartLogin,
             FinishLogin = FinishLogin,
-            Refresh = Refresh,
+            Refresh = Refresh,       
             Logout = Logout
         ]
     ],
@@ -241,6 +288,9 @@ OpenSearchProject = [
     callbackUri = "https://oauth.powerbi.com/views/oauthredirect.html",
     logout_uri = "https://login.microsoftonline.com/logout.srf",
 
+
+    // Static solution 
+    config = Text.FromBinary(Extension.Contents("OauthConf.json")),
     oauthConfig = Json.Document(config),
 
     AuthUrl = oauthConfig [IDPurl] & "auth?",
@@ -339,9 +389,9 @@ OpenSearchProject = [
                             dsr[address][server],
                             dsr[address][port],
                             dsr[address][useSSL],
-                            dsr[address][idpURL],
-                            dsr[address][ClientId],
-                            dsr[address][ClientSecret],                            
+                            dsr[address][IdPUrl],
+                            dsr[address][User],
+                            dsr[address][Secret],                            
                             dsr[address][hostnameVerification]
                         )
                     in
