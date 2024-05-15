@@ -93,7 +93,7 @@ If using with ODBC compatible BI tools, refer to the tool documentation on confi
 
 ## Using the Driver in PowerBI
 1. For avoiding authenticate with another previous session that not bypass inserting any password or username or before testing is advisable to delete cached permission in `File -> Options and settings -> Data source settings` and then: <img src="docs/powerbi_cached.png" width="400">. 
-2. Use the connector for interact with the Opensearch database from the clipboard `Get data`: <img src="docs/custom_connector.png" width="400">
+2. Use the connector for interact with the Opensearch database from the clipboard `Get data` and search for the type `Custom` (or other types depending on the definition of the project in the main `.pq` file) <img src="docs/custom_connector.png" width="400"> 
 
 ### Connection Strings and Configuring the Driver
 
