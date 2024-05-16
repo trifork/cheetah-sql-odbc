@@ -1,6 +1,13 @@
 ## OpenSearch - Tableau--------->JDBC - Tableau---///--->~~ODBC~~
 
-A special note is required for Tableau. The ODBC connector developed in this project will be NOT considered from the connector even though the `.taco` is correctly installed (a specific procedure for [connecting Opensearch to Tableau 2022](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md) is not yet valid anymore). To be more precise Tableau Desktop will visualize the interface with the name and options defined by the `TDVT` (Tableau Data source Verification Tool as main component of `Tableau Connector SDK`) in development and package phase, but underneath, the ODBC driver will be not involved but instead forward the queries with JDBC which is possible to explore and deepen the source code in the ufficial [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc). There is an Amazon project described in [OpenSearch by Amazon](https://extensiongallery.tableau.com/it-it/products/926?_ga=2.267654414.1875047423.1701090439-1605525258.1665131769) that leverage on the JDBC driver but is not opensource. JDBC actually doesn't support `OAUTH2` authentication.
+A special note is required for Tableau. The ODBC connector developed in this project will be NOT considered from the connector even though the `.taco` is correctly installed (a specific procedure for [connecting Opensearch to Tableau 2022 with ODBC](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md) is not yet valid anymore). To be more precise Tableau Desktop will visualize the interface with the name and options defined by the `TDVT` (Tableau Data source Verification Tool as main component of `Tableau Connector SDK`) in development and package phase, but underneath, the ODBC driver will be not involved but instead take place JDBC which is possible to explore and deepen the source code in the ufficial [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc) of the connector and the driver. This project carried by Amazon contribute is described in [OpenSearch by Amazon](https://extensiongallery.tableau.com/it-it/products/926?_ga=2.267654414.1875047423.1701090439-1605525258.1665131769). 
+
+> [!IMPORTANT] 
+>JDBC connector after some local test seems that doesn't work properly in authentication/authorization to OpenSearch for example with Username: "admin" and Password: "admin":
+> - From the Tableau GUI appears: "Connection error Forbidden Unable to connect to the OpenSearch by OpenSearch Project server "localhost". Check that the server is running and that you have access privileges to the requested database. Connector Class: opensearch_jdbc, Version: 1.0.1 For support, contact OpenSearch Project." 
+> - From the Docker logs after an attempt to login shows " No cluster-level perm match for User [name=opendistro_security_anonymous, backend_roles=[opendistro_security_anonymous_backendrole], requestedTenant=null] Resolved [aliases=[*], allIndices=[*], types=[*], originalRequested=[*], remoteIndices=[]] [Action [cluster:monitor/main]] [RolesChecked [own_index]]. No permissions for [cluster:monitor/main]"                           
+ 
+ Actually the connector neither the driver doesn't support `OAUTH2` authentication.
 
 
 ## Download and Installation
@@ -76,23 +83,28 @@ To setup a connection, the driver requires a JDBC connection URL. The connection
   | hostnameVerification   | Indicate whether certificate hostname verification should be performed when using SSL/TLS                        | `true` or `false` | `true`         |
   | tunnelHost             | VPC endpoint hostname if connected through a tunnel or proxy and `AWS_SIGV4` authentication is used              | any string        | `null`         |
 
-## Customizing the JDBC
-As the ODBC the JDBC customizing tasks are defined in two main areas:
 
-   - The corrispective of `PowerQuery SDK` and M language for the PowerBI frontend in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
 
-   - The corrispective of C/C++ logic for the backend in ODBC is instead in Java with Gradle over the output as `.jar` file.
+## Customizing the Tableau connector (for JDBC)
+Differently from PowerBI connector the structure and development phases are different:
 
-The packaging phase that is made from a specific Python module and is available a step by step guide to run the [connector-packager](https://tableau.github.io/connector-plugin-sdk/docs/package-sign).
+  - The corrispective of `PowerQuery SDK` and M language for the PowerBI in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
+  - The packaging phase that is made from a specific Python module and is available a step by step guide to run the [connector-packager](https://tableau.github.io/connector-plugin-sdk/docs/package-sign).
 
-The frontend development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a project is provided.
-The backend development environment instead is [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc), which include the source code, instructions and Gradle files for packaging.
+The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided.
+
+## Customizing the driver JDBC
+Differently from ODBC the JDBC the customizing development path are defined into one:
+
+   - The corrispective of C/C++ logic for the backend in ODBC is developed instead in Java with Gradle over the output as `.jar` file.
+
+The backend (driver) development environment instead is [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc), which include the source code, instructions and Gradle files for packaging.
 
 ### Preparation and Test 
 Is required a slightly different procedure for make the connector working.
     
-1. The `.taco` file should be placed in windows `C:\Users\User\Documents\My Tableau Repository\Connectors\`
+1. The connector as `.taco` file should be placed in windows `C:\Users\User\Documents\My Tableau Repository\Connectors\`
     
-2. The `.jar` file of the JDBC driver instead, should be placed in `C:\Program Files\Tableau\Drivers`
+2. The driver as `.jar` file of the JDBC driver instead, should be placed in `C:\Program Files\Tableau\Drivers`
 
 
