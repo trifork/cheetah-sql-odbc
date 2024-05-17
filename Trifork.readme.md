@@ -3,6 +3,10 @@
 OpenSearchODBC is a read-only ODBC driver for Windows and Mac for connecting to OpenSearch SQL support that add Oauth2 authentication/authorization whithin JWToken and the Authorization Code Flow. 
 In this customized version of the driver is added the `OAUTH2` option to "ODBC Data Source Administrator" that allows to test the connection inserting the JWToken. The project include also the connector that use this enhanced driver for PowerBI, where through `Power Query (M)` script is possible to manage the `Oauth` authentication flow from the GUI that start the Authorization Code Flow. The settings of the IdP the Client-ID and Client-secret are static, so for change these parameters is required to recompile the project and create a new `.mez` file. 
 
+## OpenSearch use-cases, system and dev-environment
+
+<img src="docs/app_usecase_dev.png" width="900"> 
+
 ## Specifications
 
 The driver is compatible with ODBC 3.51.

@@ -1,4 +1,4 @@
-## OpenSearch - Tableau--------->JDBC - Tableau---///--->~~ODBC~~
+## OpenSearch - Tableau
 
 A special note is required for Tableau. The ODBC connector developed in this project will be NOT considered from the connector even though the `.taco` is correctly installed. A specific procedure for [connecting OpenSearch to Tableau 2022 with ODBC](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md) report that is possible to use ODBC but nowadays is not true. Indeed, there is an old branch of OpenSearch of a [Tableau connector project](https://github.com/opensearch-project/sql/blob/remove-integtest-sh-1.x/sql-odbc/src/TableauConnector/opensearch_sql_odbc/opensearch_sql_odbc.taco) with the ODBC  `.taco` file but require a specific driver from an [old open-source version of ElasticSearch archived project](https://github.com/opendistro-for-elasticsearch/sql) (read-only from 2022). 
 
@@ -87,7 +87,7 @@ To setup a connection, the driver requires a JDBC connection URL. The connection
 
 
 
-## Customizing the Tableau connector (for JDBC)
+## Customizing the Tableau connector
 Differently from PowerBI connector the structure and development phases are different:
 
   - The corrispective of `PowerQuery SDK` and M language for the PowerBI in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
@@ -95,7 +95,7 @@ Differently from PowerBI connector the structure and development phases are diff
 
 The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided.
 
-## Customizing the driver JDBC
+## Customizing the driver
 Differently from ODBC the JDBC the customizing development path are defined into one:
 
    - The corrispective of C/C++ logic for the backend in ODBC is developed instead in Java with Gradle over the output as `.jar` file.

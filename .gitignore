@@ -62,4 +62,6 @@ CTestTestfile.cmake
 /src/PowerBIConnector/.vs/
 src/vcpkg_installed/
 /comparisonBiConnector/
-/extensionTableauConnector/
+/extensionTableauConnector/tds/tdvt-venv/
+/extensionTableauConnector/connector-plugin-sdk/
+

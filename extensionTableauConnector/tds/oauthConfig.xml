@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pluginOAuthConfig>
+    <!-- dbclass must correspond to the class registered in manifest.xml -->
+    <dbclass>opensearch_sql_odbc</dbclass>
+
+    <clientIdDesktop>client-id-1234</clientIdDesktop>
+    <clientSecretDesktop>xyz-456-000</clientSecretDesktop>
+
+    <!-- Desktop redirectUri, only needed if your authorization server doesn't allow dynamic port ranges in localhost redirect. -->
+    <redirectUrisDesktop>http://localhost:55556/Callback</redirectUrisDesktop>
+    <redirectUrisDesktop>http://localhost:55557/Callback</redirectUrisDesktop>
+    <redirectUrisDesktop>http://localhost:55558/Callback</redirectUrisDesktop>
+    <redirectUrisDesktop>http://localhost:55559/Callback</redirectUrisDesktop>
+    <redirectUrisDesktop>http://localhost:555510/Callback</redirectUrisDesktop>
+
+    <authUri>http://localhost:1852/realms/local-development/protocol/openid-connect/auth</authUri>
+    <tokenUri>http://localhost:1852/realms/local-development/protocol/openid-connect/token</tokenUri>
+
+    <instanceUrlValidationRegex>^http:\/\/(.+\.)?(supercloud\.(com|us|cn|de))(.*)</instanceUrlValidationRegex>
+    <scopes>refresh_token</scopes>
+    <scopes>profile</scopes>
+    <scopes>email</scopes>
+    <capabilities>
+        <entry>
+            <key>OAUTH_CAP_PKCE_REQUIRES_CODE_CHALLENGE_METHOD</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>OAUTH_CAP_SUPPORTS_CUSTOM_DOMAIN</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>OAUTH_CAP_REQUIRE_PKCE</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>OAUTH_CAP_FIXED_PORT_IN_CALLBACK_URL</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>OAUTH_CAP_PKCE_REQUIRES_CODE_CHALLENGE_METHOD</key>
+            <value>true</value>
+        </entry>
+    </capabilities>
+
+    <!-- Map Tableau recognized attribute "key" to OAuth response attribute "value" -->
+    <accessTokenResponseMaps>
+        <entry>
+            <key>ACCESSTOKEN</key>
+            <value>access_token</value>
+        </entry>
+        <entry>
+            <key>REFRESHTOKEN</key>
+            <value>refresh_token</value>
+        </entry>
+        <entry>
+            <key>access-token-issue-time</key>
+            <value>issued_at</value>
+        </entry>
+        <entry>
+            <key>access-token-expires-in</key>
+            <value>expires_in</value>
+        </entry>
+        <entry>
+            <key>username</key>
+            <value>username</value>
+        </entry>
+    </accessTokenResponseMaps>
+
+    <!-- No refreshTokenResponseMaps needed since it's the same as accessTokenResponseMaps -->
+ </pluginOAuthConfig>

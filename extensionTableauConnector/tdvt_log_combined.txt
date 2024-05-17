@@ -1,0 +1,7 @@
+2024-05-14 13:02:09,569 INFO TDVT version: 2.13.7
+2024-05-14 13:02:09,585 INFO Reading registry ini file [C:\Users\User\Desktop\projects\FlinkSystem\cheetah-sql-odbc\extensionTableauConnector\src\tdvt-venv\Lib\site-packages\tdvt\config\registry\windows.ini]
+2024-05-14 13:02:09,585 INFO TABQUERY_CLI_PATH environment variable not set. Trying ini files.
+2024-05-14 13:02:09,585 INFO Reading tdvt ini file [C:\Users\User\Desktop\projects\FlinkSystem\cheetah-sql-odbc\extensionTableauConnector\src\tdvt-venv\Lib\site-packages\tdvt\config\tdvt\tdvt.ini]
+2024-05-14 13:02:09,694 INFO Running TDVT on Windows/AMD64
+2024-05-14 13:02:09,718 INFO Using TAB_CLI_EXE_X86 path.
+2024-05-14 13:02:09,718 INFO Reading tdvt ini C:\Users\User\Desktop\projects\FlinkSystem\cheetah-sql-odbc\extensionTableauConnector\src\tdvt-venv\Lib\site-packages\tdvt\config\tdvt\tdvt.ini file tabquerycli path is C:/Program Files/Tableau/Tableau XXXX.X/bin/tabquerytool.exe
