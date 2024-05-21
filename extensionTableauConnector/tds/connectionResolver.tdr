@@ -12,14 +12,10 @@
           <attr>authentication</attr>
           <attr>username</attr>
           <attr>password</attr>
-          <attr>authUri</attr>
-          <!-- <attr>idp</attr>
-          <attr>userid</attr>
-          <attr>usersecret</attr> -->
-
+          <attr>instanceurl</attr>
+          <attr>v-region</attr>
           <attr>sslmode</attr>
-          <attr>vendor1</attr>
-          <attr>vendor2</attr>
+          <attr>v-trustSelfSigned</attr>
         </attribute-list>
       </required-attributes>
     </connection-normalizer>

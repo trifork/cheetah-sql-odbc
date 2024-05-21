@@ -243,7 +243,7 @@ OpenSearchProject = [
     AuthUrl = oauthConfig [IDPurl] & "auth?",
     TokenUrl = oauthConfig [IDPurl] & "token",
     LogoutUrl = oauthConfig [IDPurl] & "logout",
-    ClientId = oauthConfig [ClientId] ,
+    ClientId = oauthConfig [ClientId],
     ClientSecret = oauthConfig[ClientSecret],
 
     Scope = "opensearch",

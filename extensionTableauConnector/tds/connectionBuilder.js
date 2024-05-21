@@ -7,15 +7,17 @@
 
     // Set authentication values in connection string
     var authAttrValue = attr[connectionHelper.attributeAuthentication];
-    params["Auth"] = attr[connectionHelper.attributeAuthentication];
-    if (authAttrValue == "AWS_SIGV4"){
-        params["Region"] = attr[connectionHelper.attributeVendor1];
-    } else if (authAttrValue == "BASIC"){
+    // params["Auth"] = attr[connectionHelper.attributeAuthentication];
+    if (authAttrValue == "auth-integrated"){
+        params["Auth"] = "AWS_SIGV4"; 
+        params["Region"] = attr[v-region];
+    } else if (authAttrValue == "auth-user-pass"){
+        params["Auth"] = "BASIC"; 
         params["UID"] = attr[connectionHelper.attributeUsername];
         params["PWD"] = attr[connectionHelper.attributePassword];
     } else if (authAttrValue == "oauth"){
-		params["AUTHENTICATOR"] = "OAUTH2";
-		params["JWT"] = attr["ACCESSTOKEN"];
+        params["Auth"] = "OAUTH2";
+        params["JWT"] = attr["ACCESSTOKEN"];
     }
 
     // Set SSL value in connection string 
@@ -23,16 +25,6 @@
         params["useSSL"] = "1";
     } else {
         params["useSSL"] = "0";
-    }
-
-    // Parse additional options and add in connection string
-    var odbcConnectStringExtrasMap = {};
-    const attributeODBCConnectStringExtras = "vendor2";
-    if (attributeODBCConnectStringExtras in attr){
-        odbcConnectStringExtrasMap = connectionHelper.ParseODBCConnectString(attr[attributeODBCConnectStringExtras]);
-    }
-    for (var key in odbcConnectStringExtrasMap){
-        params[key] = odbcConnectStringExtrasMap[key];
     }
 
     // Format the attributes as 'key=value'
