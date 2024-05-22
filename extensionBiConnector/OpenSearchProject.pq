@@ -247,6 +247,16 @@ OnOdbcError = (errorRecord as record) =>
 OpenSearchProject = [
     // Required for use with Power BI Service.
 
+    preFlowInfo = Value.ReplaceType(OpenSearchOauthImpl, OpenSearchProjectType),
+
+    OpenSearchOauthImpl = (Server as text, Port as number, UseSSL as logical, HostnameVerification as logical, IdPUrl as text, User as text, Secret as text) as record =>
+    let 
+        idp_url = IdPUrl,
+        user = User,
+        secret= Secret
+    in 
+        [idp_url= idp_url, user = user, secret= secret],
+
     // Solution 3 call the function here and get the odbc connection string
     // config = OpenSearchProject.Contents() 
 
@@ -293,11 +303,18 @@ OpenSearchProject = [
     config = Text.FromBinary(Extension.Contents("OauthConf.json")),
     oauthConfig = Json.Document(config),
 
-    AuthUrl = oauthConfig [IDPurl] & "auth?",
-    TokenUrl = oauthConfig [IDPurl] & "token",
-    LogoutUrl = oauthConfig [IDPurl] & "logout",
-    ClientId = oauthConfig [ClientId] ,
-    ClientSecret = oauthConfig[ClientSecret],
+    // AuthUrl = oauthConfig [IDPurl] & "auth?",
+    // TokenUrl = oauthConfig [IDPurl] & "token",
+    // LogoutUrl = oauthConfig [IDPurl] & "logout",
+    // ClientId = oauthConfig [ClientId] ,
+    // ClientSecret = oauthConfig[ClientSecret],
+
+    AuthUrl = OpenSearchOauthImpl [idp_url] & "auth?",
+    TokenUrl = OpenSearchOauthImpl [idp_url] & "token",
+    LogoutUrl = OpenSearchOauthImpl [idp_url] & "logout",
+    ClientId = OpenSearchOauthImpl [user] ,
+    ClientSecret = OpenSearchOauthImpl [secret],
+
 
     Scope = "opensearch",
 
