@@ -8,8 +8,8 @@
   </vendor-information>
   <connection-customization class="opensearch_sql_odbc" enabled="true" version="10.0">
     <vendor name="Trifork"/>
+    <!-- <driver name="opensearchodbc"/> -->
     <driver name="opensearchodbc"/>
-    <!-- <driver name="OpenSearch SQL ODBC Driver"/> -->
     <customizations>
       <customization name="CAP_CREATE_TEMP_TABLES" value="no"/>
       <customization name="CAP_SUPPRESS_DISCOVERY_QUERIES" value="yes" />
@@ -48,6 +48,5 @@
   <!-- <connection-dialog file="connection-dialog.tcd"/> -->
   <connection-resolver file="connectionResolver.tdr"/>
   <dialect file='dialect.tdd'/>
-  <oauth-config file='oauthConfig.xml'/>
-
-  <oauth-config file="oauthConfig.xml" />
+  <oauth-config file="oauthConfig.xml" />  
+</connector-plugin>

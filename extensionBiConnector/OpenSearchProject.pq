@@ -257,6 +257,8 @@ OpenSearchProject = [
     in 
         [idp_url= idp_url, user = user, secret= secret],
 
+    oauthconf = OpenSearchOauthImpl(OpenSearchProjectType),
+
     // Solution 3 call the function here and get the odbc connection string
     // config = OpenSearchProject.Contents() 
 
@@ -309,11 +311,11 @@ OpenSearchProject = [
     // ClientId = oauthConfig [ClientId] ,
     // ClientSecret = oauthConfig[ClientSecret],
 
-    AuthUrl = OpenSearchOauthImpl [idp_url] & "auth?",
-    TokenUrl = OpenSearchOauthImpl [idp_url] & "token",
-    LogoutUrl = OpenSearchOauthImpl [idp_url] & "logout",
-    ClientId = OpenSearchOauthImpl [user] ,
-    ClientSecret = OpenSearchOauthImpl [secret],
+    AuthUrl = oauthconf [idp_url] & "auth?",
+    TokenUrl = oauthconf [idp_url] & "token",
+    LogoutUrl = oauthconf [idp_url] & "logout",
+    ClientId = oauthconf [user] ,
+    ClientSecret = oauthconf [secret],
 
 
     Scope = "opensearch",
