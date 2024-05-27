@@ -10,7 +10,7 @@ In this customized version of the driver is added the `OAUTH2` option to "ODBC D
 There are two folder that are structured for the development environment:
 1. `extensionBIConnector`: contains a template project ready to build with Power Query SDK.
 > [!IMPORTANT] 
->The connector in this folder is trying to insert the IdP endpoint dynamically from the parameter given from the GUI reported in [Microsoft github issue](https://github.com/microsoft/vscode-powerquery-sdk/issues/326) and [Microsoft Power Query](https://community.fabric.microsoft.com/t5/Developer/ODBC-connector-and-OAuth-flow/m-p/3916723#M52437), there are in comment many attempts to to that.   
+>The connector in this folder is trying to insert the IdP endpoint dynamically from the parameter given from the GUI reported in [Microsoft github issue](https://github.com/microsoft/vscode-powerquery-sdk/issues/326) and [Microsoft Power Query](https://community.fabric.microsoft.com/t5/Developer/ODBC-connector-and-OAuth-flow/m-p/3916723#M52437), there are in comments of the `OpenSearchProject.pq` file many attempts to to that.   
 
 2. `extensionTableauConnector`: contains a template project ready to build with the Connector-plugin-sdk and TVDT. As described in [TriforkTablueau readme file](./TriforkTableau.readme.md) it will needs a Python environment, install the Connector-plugin-sdk and TDVT.
 > [!IMPORTANT] 
