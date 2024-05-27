@@ -97,7 +97,7 @@ Differently from PowerBI connector the structure and development phases are diff
   - The corrispective of `PowerQuery SDK` and M language for the PowerBI in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
   - The packaging phase that is made from a specific Python module and is available a step by step guide to run the [connector-packager](https://tableau.github.io/connector-plugin-sdk/docs/package-sign).
 
-The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided.
+The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided. JDBC connector has a slightly different logic to build the connection string.
 
 ## Customizing the driver
 Differently from ODBC the JDBC the customizing development path are defined into one:
@@ -110,8 +110,8 @@ The driver development environment for JDBC can be reachable in [OpenSearch - JD
 ## Preparation and Test 
 Is required a slightly different procedure for make the connector working.
     
-1. The connector as `.taco` file should be placed in windows `C:\Users\User\Documents\My Tableau Repository\Connectors\`
+1. The connector as `.taco` file should be placed in windows `C:\Users\User\Documents\My Tableau Repository\Connectors\`.
     
-2. The driver as `.jar` file of the JDBC driver instead, should be placed in `C:\Program Files\Tableau\Drivers`
+2. If JDBC the driver as `.jar` file, should be placed in `C:\Program Files\Tableau\Drivers`. If ODBC install the proper version of the driver with `.msi` installer.
 
 
