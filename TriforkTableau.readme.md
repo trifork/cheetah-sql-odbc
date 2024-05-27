@@ -7,13 +7,12 @@ To be more precise, Tableau Desktop will visualize the interface with the name a
 There is JDBC version which is possible to explore and deepen the source code in the ufficial [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc) of the connector and the driver. This project carried by Amazon contribution is described in [OpenSearch by Amazon](https://extensiongallery.tableau.com/it-it/products/926?_ga=2.267654414.1875047423.1701090439-1605525258.1665131769). 
 
 > [!IMPORTANT] 
-
 > - JDBC connector after some local test seems that doesn't work properly in authentication/authorization to OpenSearch for example with Username: "admin" and Password: "admin":
 > - From the Tableau GUI appears: "Connection error Forbidden Unable to connect to the OpenSearch by OpenSearch Project server "localhost". Check that the server is running and that you have access privileges to the requested database. Connector Class: opensearch_jdbc, Version: 1.0.1 For support, contact OpenSearch Project." 
 > - From the Docker logs after an attempt to login shows " No cluster-level perm match for User [name=opendistro_security_anonymous, backend_roles=[opendistro_security_anonymous_backendrole], requestedTenant=null] Resolved [aliases=[*], allIndices=[*], types=[*], originalRequested=[*], remoteIndices=[]] [Action [cluster:monitor/main]] [RolesChecked [own_index]]. No permissions for [cluster:monitor/main]"
 > - ODBC connector doesn't work properly in authentication/authorization with `OAUTH2`: "An error occurred while communicating with data source 'Untitled Data Source' Authentication failed.Error Code: 84223ADA Tableau received an OAuth error from your request. Please see the error message for more information: java.net.MalformedURLException."        
  
- Actually the connector either the driver doesn't support `OAUTH2` authentication.
+Actually the connector either the driver doesn't support `OAUTH2` authentication.
 
 ## Download and Installation
 
