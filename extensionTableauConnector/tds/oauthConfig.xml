@@ -46,6 +46,7 @@
             <key>OAUTH_CAP_FIXED_PORT_IN_CALLBACK_URL</key>
             <value>true</value>
         </entry>
+
     </capabilities>
 
     <!-- Map Tableau recognized attribute "key" to OAuth response attribute "value" -->
