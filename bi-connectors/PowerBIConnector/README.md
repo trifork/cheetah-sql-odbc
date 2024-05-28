@@ -11,7 +11,7 @@ Is possible to initialize a project for example in VSC with <img src="img/powerq
 
 The main logic is in `.pq` (not `.query.pq`) and is not possible to have multiple files of this extension. There are many example certified [data connectors](https://github.com/microsoft/DataConnectors/tree/master/samples/ODBC) to start with. In connector development there are limitation to the functionalities that is possibile to use as the [data source functions](https://learn.microsoft.com/en-us/power-query/handling-data-access#data-source-functions). The reference and guides of [Power Query M](https://learn.microsoft.com/en-us/powerquery-m/) is available.
 
-After created the program it is required to run compiling and packaging phases as <img src="img/build_task.png" width="400">. 
+After created the program it is required to run compiling and packaging phases as <img src="img/build_task.png" width="600">. 
 
 The output `.mez` file will appear in `bin\AnyCPU\Debug` of the same folder.
 
