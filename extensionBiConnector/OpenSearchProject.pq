@@ -49,23 +49,23 @@ OpenSearchProjectType = type function (
     ),
     IdPUrl as (
         type text meta [
-            Documentation.FieldCaption = "Endopint",
-            Documentation.FieldDescription = "Endpoint",
-            Documentation.SampleValues = {"http://"}
+            Documentation.FieldCaption = "IdP Endopint",
+            Documentation.FieldDescription = "Endpoint of the IdP",
+            Documentation.SampleValues = {"http://... or https://..."}
         ]
     ),
     User as (
         type text meta [
             Documentation.FieldCaption = "Username",
-            Documentation.FieldDescription = "Username",
-            Documentation.SampleValues = {"username"}
+            Documentation.FieldDescription = "Client identificator",
+            Documentation.SampleValues = {"Client Id"}
         ]
     ),
     Secret as (
         type text meta [
             Documentation.FieldCaption = "Secret",
-            Documentation.FieldDescription = "Secret",
-            Documentation.SampleValues = {"secret"}
+            Documentation.FieldDescription = "Client secret",
+            Documentation.SampleValues = {"Client secret"}
         ]
     )
 ) as table meta [

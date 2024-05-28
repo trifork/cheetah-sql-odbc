@@ -98,7 +98,7 @@ Differently from PowerBI connector the structure and development phases are diff
 The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided. JDBC connector has a slightly different logic to build the connection string.
 
 ## Customizing the driver JDBC
-Differently from ODBC the JDBC the customizing development path are defined into one:
+Differently from ODBC the JDBC the customizing development consist on:
 
    - The ODBC driver is developed in C/C++, produce `.dll` (windows case) files and will package into a `.msi` file that will install the driver.
    - The corrispective of C/C++ logic for the ODBC driver is that JDBC is developed instead in Java with Gradle over the output as `.jar` file to move into a specific folder.
