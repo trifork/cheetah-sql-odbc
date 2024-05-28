@@ -98,7 +98,7 @@ This option allows you to re-build and re-package the modified driver code witho
 3. Follow the instruction from the Readme file in [PowerBi](bi-connectors/PowerBIConnector/README.md), `.mez` file (the connector that use the driver) required can be copied from the same folder or from the link described.
 
 ## The high level structure and relationships
-In order to customize the driver two areas has to be taken in consideration. To have a quick reference, some indication about the Windows GUI of the driver `ODBC Data Sources ([32 | 64]-bit)` is managed or declaring resources mainly from a Microsoft Visual C++ file `opensearch_odbc.rc`, and C programming such as `dlg_specific.h`, `dlg_wingui.c`, `setup.c`, `resource.h`. Instead the logic and the implementation of the authentication is managed from C++ files such as `opensearch_communication.cpp` where the HTTP call is created.
+In order to customize the driver two areas has to be taken in consideration. To have a quick reference, some indication about the Windows GUI of the driver `ODBC Data Sources ([32 | 64]-bit)` is managed or declaring resources mainly from a Microsoft Visual C++ file `opensearch_odbc.rc`, and C programming such as `dlg_specific.h`, `dlg_wingui.c`, `setup.c`, `resource.h`. Instead the logic and the implementation of the authentication is managed from C++ files such as `opensearch_communication.cpp` where the HTTP call is created. Unit test regarding OAuth is in `test_conn.cpp` and Integration Tests in the folder `IntegrationTests/ITODBCOauth/`
 
 ## Using the Driver
 The driver comes in the form of a library file:
@@ -108,8 +108,12 @@ The driver comes in the form of a library file:
 If using with ODBC compatible BI tools, refer to the tool documentation on configuring a new ODBC driver. In most cases, you will need to make the tool aware of the location of the driver library file and then use it to setup OpenSearch database connections. Should be enough for change the logic to substitute this dll `sqlodbc.dll` inside the opensearch installation path, but it was encounter some not so well specified error with this practice, so it is advisable to package and re-install from the produced `.msi` file.
 
 ## Using the Driver in PowerBI
-1. For avoiding authenticate with another previous session that not bypass inserting any password or username or before testing is advisable to delete cached permission in `File -> Options and settings -> Data source settings` and then: <img src="docs/powerbi_cached.png" width="400">. 
-2. Use the connector for interact with the Opensearch database from the clipboard `Get data` and search for the type `Custom` (or other types depending on the definition of the project in the main `.pq` file) <img src="docs/custom_connector.png" width="400"> 
+1. For avoiding authenticate with another previous session that not bypass inserting any password or username or before testing is advisable to delete cached permission in `File -> Options and settings -> Data source settings` and then:
+
+ <img src="docs/powerbi_cached.png" width="400">. 
+2. Use the connector for interact with the Opensearch database from the clipboard `Get data` and search for the type `Custom` (or other types depending on the definition of the project in the main `.pq` file)
+ 
+ <img src="docs/custom_connector.png" width="400"> 
 
 ### Connection Strings and Configuring the Driver
 

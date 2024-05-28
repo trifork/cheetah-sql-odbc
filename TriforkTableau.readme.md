@@ -1,24 +1,22 @@
 ## OpenSearch - Tableau
 
-A special note is required for Tableau. The ODBC connector developed in this project is not ready beacuse of OAuth is not working (Username and Password works). The ODBC project takes inspiration from an old OpenSource project [connecting OpenSearch to Tableau 2022 with ODBC](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md). Indeed, there is an old branch of OpenSearch of a [Tableau connector project](https://github.com/opensearch-project/sql/blob/remove-integtest-sh-1.x/sql-odbc/src/TableauConnector/opensearch_sql_odbc/opensearch_sql_odbc.taco) with the ODBC  `.taco` file but require a specific driver from an [old open-source version of ElasticSearch archived project](https://github.com/opendistro-for-elasticsearch/sql) (read-only from 2022) that it doesn't work properly. 
+A special note is required for Tableau that can use both JDBC and ODBC. The ODBC connector and driver is explained in detail [here](Trifork.readme.md). For Tableau ODBC connector isn still working in progres beacuse of OAuth is not working (UsernamePassword works). The ODBC project takes inspiration from an old OpenSource project [connecting OpenSearch to Tableau 2022 with ODBC](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md). Indeed, there is an old branch of OpenSearch of a [Tableau connector project](https://github.com/opensearch-project/sql/blob/remove-integtest-sh-1.x/sql-odbc/src/TableauConnector/opensearch_sql_odbc/opensearch_sql_odbc.taco) with the ODBC `.taco` file but require a specific driver from an [old open-source version of ElasticSearch archived project](https://github.com/opendistro-for-elasticsearch/sql) (read-only from 2022) that it doesn't work properly and doesn't provide `OAUTH2`. 
 
-To be more precise, Tableau Desktop will visualize the interface with the name and options defined by the `TDVT` (Tableau Data source Verification Tool as main component of `Tableau Connector SDK`) in development and package phase. The project is in the `extensionTableauConnector` folder will be package all the file from the `extensionTableauConnector/tds` folder and outut the `.taco` file inside the folder where you install the `connector-plugin-sdk`. 
+On development phase, Tableau Desktop will visualize the interface with the name and options defined by the `TDVT` (Tableau Data source Verification Tool as main component of `Tableau Connector SDK`). The project is in the `extensionTableauConnector` folder will be package all the file from the `extensionTableauConnector/tds` folder and package the `.taco` file inside the folder where you install the `connector-plugin-sdk`. 
 
-There is JDBC version which is possible to explore and deepen the source code in the ufficial [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc) of the connector and the driver. This project carried by Amazon contribution is described in [OpenSearch by Amazon](https://extensiongallery.tableau.com/it-it/products/926?_ga=2.267654414.1875047423.1701090439-1605525258.1665131769). 
+There is JDBC version which is possible to explore and deepen the source code in the ufficial [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc) of the connector and the driver. This project carried by Amazon contribution is described in [OpenSearch by Amazon](https://extensiongallery.tableau.com/it-it/products/926?_ga=2.267654414.1875047423.1701090439-1605525258.1665131769) but still no `OAUTH2` provided. 
 
 > [!IMPORTANT] 
 > - JDBC connector after some local test seems that doesn't work properly in authentication/authorization to OpenSearch for example with Username: "admin" and Password: "admin":
 > - From the Tableau GUI appears: "Connection error Forbidden Unable to connect to the OpenSearch by OpenSearch Project server "localhost". Check that the server is running and that you have access privileges to the requested database. Connector Class: opensearch_jdbc, Version: 1.0.1 For support, contact OpenSearch Project." 
 > - From the Docker logs after an attempt to login shows " No cluster-level perm match for User [name=opendistro_security_anonymous, backend_roles=[opendistro_security_anonymous_backendrole], requestedTenant=null] Resolved [aliases=[*], allIndices=[*], types=[*], originalRequested=[*], remoteIndices=[]] [Action [cluster:monitor/main]] [RolesChecked [own_index]]. No permissions for [cluster:monitor/main]"
 > - ODBC connector doesn't work properly in authentication/authorization with `OAUTH2`: "An error occurred while communicating with data source 'Untitled Data Source' Authentication failed.Error Code: 84223ADA Tableau received an OAuth error from your request. Please see the error message for more information: java.net.MalformedURLException."        
- 
-Actually the connector either the driver doesn't support `OAUTH2` authentication.
 
-## Download and Installation
+## Download and Installation JDBC
 
 The driver is available for download from [Maven](https://repo1.maven.org/maven2/org/opensearch/driver/opensearch-sql-jdbc/), from [Artifacts page](https://opensearch.org/artifacts) on OpenSearch.org at the very bottom and from [automated CI workflow](https://github.com/opensearch-project/sql-jdbc/actions/workflows/sql-jdbc-test-and-build-workflow.yml).
 
-## Using the driver
+## Using the driver ODBC/JDBC
 
 The driver comes in the form of a single jar file. To use it, simply place it on the classpath of the
 Java application that needs to use it.
@@ -27,9 +25,9 @@ If using with JDBC compatible BI tools, refer to the tool documentation on confi
 all that's required is to make the tool aware of the location of the driver jar and then use it to setup database (i.e
 OpenSearch) connections.
 
-The ODBC require the modifyed ODBC driver installed that support `OAUTH2`.
+The ODBC require the modifyed ODBC driver installed by a `.msi` file that support `OAUTH2`.
 
-### Connection URL and other settings
+### Connection URL and other settings JDBC
 
 To setup a connection, the driver requires a JDBC connection URL. The connection URL is of the form:
 ```
@@ -91,7 +89,7 @@ To setup a connection, the driver requires a JDBC connection URL. The connection
 
 
 
-## Customizing the Tableau connector
+## Customizing the Tableau connector ODBC/JDBC
 Differently from PowerBI connector the structure and development phases are different:
 
   - The corrispective of `PowerQuery SDK` and M language for the PowerBI in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
@@ -99,7 +97,7 @@ Differently from PowerBI connector the structure and development phases are diff
 
 The frontend (connector) development environment is based on Python which has some requirement, installations and settings that can be explored in [TDVT](https://tableau.github.io/connector-plugin-sdk/docs/tdvt). A general explanation of the source code and specifically the [structure](https://tableau.github.io/connector-plugin-sdk/docs/) of a standard project is provided. JDBC connector has a slightly different logic to build the connection string.
 
-## Customizing the driver
+## Customizing the driver JDBC
 Differently from ODBC the JDBC the customizing development path are defined into one:
 
    - The ODBC driver is developed in C/C++, produce `.dll` (windows case) files and will package into a `.msi` file that will install the driver.
@@ -107,11 +105,15 @@ Differently from ODBC the JDBC the customizing development path are defined into
 
 The driver development environment for JDBC can be reachable in [OpenSearch - JDBC repo](https://github.com/opensearch-project/sql-jdbc), which include the source code, instructions and Gradle files for packaging.
 
-## Preparation and Test 
+Is possible to sign the connector as described in the [Tableau Connector SDK documentation](https://tableau.github.io/connector-plugin-sdk/docs/package-sign), so that Tableau will load only .taco files that have been signed with a currently valid certificate and also it can be used without disabling the signature check manually.
+
+## Preparation and Test ODBC/JDBC
 Is required a slightly different procedure for make the connector working.
     
 1. The connector as `.taco` file should be placed in windows `C:\Users\User\Documents\My Tableau Repository\Connectors\`.
     
 2. If JDBC the driver as `.jar` file, should be placed in `C:\Program Files\Tableau\Drivers`. If ODBC install the proper version of the driver with `.msi` installer.
+
+3. Run Tableau with this shell command if the connector is not signed yet `.\tableau.exe -DDisableVerifyConnectorPluginSignature=true` otherwise will raise an error at the moment of authentication.
 
 
