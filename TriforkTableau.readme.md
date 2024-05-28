@@ -90,7 +90,7 @@ To setup a connection, the driver requires a JDBC connection URL. The connection
 
 
 ## Customizing the Tableau connector ODBC/JDBC
-Differently from PowerBI connector the structure and development phases are different:
+The structure of the connector can be different and this template follow the latest version as [Connection Dialog v2](https://tableau.github.io/connector-plugin-sdk/docs/mcd) of the structure and generally differ from PowerBI connector in the structure and development phases:
 
   - The corrispective of `PowerQuery SDK` and M language for the PowerBI in Tableau is `TDVT`, the coding language is mainly Javascript and the output is a `.taco` file.
   - The packaging phase that is made from a specific Python module and is available a step by step guide to run the [connector-packager](https://tableau.github.io/connector-plugin-sdk/docs/package-sign).
