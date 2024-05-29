@@ -3,9 +3,11 @@
 OpenSearchODBC is a read-only ODBC driver for Windows and Mac for connecting to OpenSearch SQL support that add Oauth2 authentication/authorization whithin JWToken and the Authorization Code Flow. 
 In this customized version of the driver is added the `OAUTH2` option to "ODBC Data Source Administrator" that allows to test the connection inserting the JWToken. The project include also the connector that use this enhanced driver for PowerBI, where through `Power Query (M)` script is possible to manage the `Oauth` authentication flow from the GUI that start the Authorization Code Flow. The settings of the IdP the Client-ID and Client-secret are static, so for change these parameters is required to recompile the project and create a new `.mez` file. 
 
+In the document will be used the following symbols: `<helper>` where `helper` suggest the value that should substitute the entire diamond and `[value1 | value2]` indicate that you are forced to substitute the square brackets with a value from `value1` or `value2`.
+
 ## OpenSearch use-cases, system and dev-environment
 
-<img src="docs/app_usecase_dev.png" width="900"> 
+<img src="docs/app_usecase_dev.png" width="1000"> 
 
 There are two folder that are structured for the development environment:
 1. `extensionBIConnector`: contains a template project ready to modify and develop with Power Query SDK.
@@ -34,6 +36,10 @@ The driver is compatible with ODBC 3.51.
 ## BI Tool Connectors
 
 * [Power BI Desktop](bi-connectors/PowerBIConnector/README.md)
+
+## Tableau Connectors
+
+* [Tableau Desktop](TriforkTableau.readme.md)
 
 ## Download and Installation the Baseline driver
 
@@ -64,7 +70,7 @@ To use the driver with Tableau:
 This will customize the connection from Tableau to OpenSearch, ensuring that the correct forms of queries are used.
 
 ## Customizing, developing and re-build, re-packaging manually the driver: Windows 
-This option allows you to re-build and re-package the modified driver code advised if you don't have enough disk space or hardware resources.
+This option allows you to re-build and re-package the modified driver code advised if you don't have enough disk space or hardware resources. 
 
 ### Set up development environment
 1. In windows, install `vcpkg` (Package manager for C++) by cloning and follow the instruction from this [repo page](https://github.com/microsoft/vcpkg) but the installation path should be `c:\` (root) path. The reason of the the root path requirement is that a specific C++ package `aws-sdk-cpp` when installed from `vcpkg` doesn't work with a long installation-path. In case of different path make sure to modify the file `\scripts\build_windows_manual.ps1` in `$VCPKG_INSTALLED_DIR` variable and check for warnings/errors.
@@ -110,7 +116,8 @@ If using with ODBC compatible BI tools, refer to the tool documentation on confi
 ## Using the Driver in PowerBI
 1. For avoiding authenticate with another previous session that not bypass inserting any password or username or before testing is advisable to delete cached permission in `File -> Options and settings -> Data source settings` and then:
 
- <img src="docs/powerbi_cached.png" width="400">. 
+ <img src="docs/powerbi_cached.png" width="400">.
+  
 2. Use the connector for interact with the Opensearch database from the clipboard `Get data` and search for the type `Custom` (or other types depending on the definition of the project in the main `.pq` file)
  
  <img src="docs/custom_connector.png" width="400"> 
