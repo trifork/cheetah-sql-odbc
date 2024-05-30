@@ -135,6 +135,8 @@ To setup a connection, the driver uses an ODBC connection string. Connection str
 
 **NOTE**: Some tests in ITODBCConnection will fail if a test DSN (Data Source Name) is not configured on your system. Refer to "Running Tests" in the [build instructions](docs/dev/BUILD_INSTRUCTIONS.md) for more information on configuring this.
 
+Is possible to make a static check for C++/C code installing the tool [CPPCheck](http://cppcheck.net/) and insert the directory of the installation folder in `path` (Windows). After that is possible to run `run_cppcheck.bat` and look at the results in `cppcheck/results.log` of the same folder.
+
 ## Documentation
 
 Please refer to the [documentation](https://opensearch.org/docs/latest/) for detailed information on installing and configuring OpenSearch.
